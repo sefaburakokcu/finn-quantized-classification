@@ -1,4 +1,15 @@
-# Low precision Neural Networks for Classification 
+# Low-Precision Neural Networks for Classification 
+
+## Contents
+-[Introduction](#introduction)
+-[Usage](#usage)
+-[Train](#train)
+-[Evaluate](#evaluate)
+-[Export](#export)
+-[References](#references)
+
+
+## Introduction
 
 This repo contains training, evaluation and deploy scripts of some models for classification.
 For training, [Brevitas](https://github.com/Xilinx/brevitas) which is a PyTorch research library for quantization-aware training (QAT) is utilized and [FINN](https://github.com/Xilinx/finn) which is an experimental framework from Xilinx Research Labs to explore deep neural network inference on FPGAs is used for deploying models on a [PYNQ-Z2](http://www.pynq.io/board.html) board.
@@ -11,7 +22,6 @@ For training, [Brevitas](https://github.com/Xilinx/brevitas) which is a PyTorch 
 * Available Datasets
   * MNIST
   * CIFAR10
-
 
 
 ## Usage
@@ -75,21 +85,21 @@ optional arguments:
 
 To start training a model from scratch, e.g. LFC_1W1A, run:
  ```bash
-PYTORCH_JIT=1 brevitas_bnn_pynq_train --network LFC_1W1A --experiments /path/to/experiments
+PYTORCH_JIT=1 python quantized_classification_train.py --network LFC_1W1A --experiments /path/to/experiments/
  ```
 
 ## Evaluate
 
 To evaluate a model, e.g. LFC_1W1A, run:
  ```bash
-PYTORCH_JIT=1 brevitas_bnn_pynq_train --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar
+PYTORCH_JIT=1 python quantized_classification_train.py --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar
  ```
  
 ## Export
 
 To export a model, e.g. LFC_1W1A, run:
  ```bash
-PYTORCH_JIT=1 brevitas_bnn_pynq_train --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar --onnx_export
+PYTORCH_JIT=1 python quantized_classification_train.py --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar --onnx_export
  ```
 
 ## References
