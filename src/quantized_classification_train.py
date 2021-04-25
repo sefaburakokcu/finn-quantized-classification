@@ -81,7 +81,7 @@ def parse_args(args):
     # Neural network Architecture
     parser.add_argument("--network", default="LFC_1W1A", type=str, help="neural network")
     parser.add_argument("--pretrained", action='store_true', help="Load pretrained model")
-    parser.add_argument("--onnx_export", action='store_false', help="Export final model as ONNX")
+    parser.add_argument("--onnx_export", action='store_true', help="Export final model as ONNX")
 
     return parser.parse_args(args)
 
