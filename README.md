@@ -1,12 +1,12 @@
 # Low-Precision Neural Networks for Classification 
 
 ## Contents
--[Introduction](#introduction)
--[Usage](#usage)
--[Train](#train)
--[Evaluate](#evaluate)
--[Export](#export)
--[References](#references)
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Train](#train)
+- [Evaluate](#evaluate)
+- [Export](#export)
+- [References](#references)
 
 
 ## Introduction
