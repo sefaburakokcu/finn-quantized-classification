@@ -2,6 +2,7 @@
 
 ## Contents
 - [Introduction](#introduction)
+- [Requirements](#requirements)
 - [Usage](#usage)
 - [Train](#train)
 - [Evaluate](#evaluate)
@@ -16,12 +17,19 @@ For training, [Brevitas](https://github.com/Xilinx/brevitas) which is a PyTorch 
 
 * Available Models
   * Fully Connected(FC)
-  * Convolutional Neurak Network(CNV)
+  * Convolutional Neural Network(CNV)
   * Lenet5(using HardTanh instead of Tanh activation)
 
 * Available Datasets
   * MNIST
   * CIFAR10
+
+
+## Requirements
+
+* Python >= 3.6.
+* Pytorch >= 1.5.0.
+* Brevitas >= 0.5.0.
 
 
 ## Usage
