@@ -38,6 +38,7 @@ from models import model_with_cfg
 from models.losses import SqrHingeLoss
 from exporter import Exporter
 
+from datasets.tinyimagenet import TINYIMAGENET
 
 def accuracy(output, target, topk=(1,)):
     """Computes the precision@k for the specified values of k"""
@@ -95,16 +96,32 @@ class Trainer(object):
 
         dataset = cfg.get('MODEL', 'DATASET')
         self.num_classes = cfg.getint('MODEL', 'NUM_CLASSES')
+        
         if dataset == 'CIFAR10':
             train_transforms_list = [transforms.RandomCrop(32, padding=4),
                                      transforms.RandomHorizontalFlip(),
                                      transforms.ToTensor()]
             transform_train = transforms.Compose(train_transforms_list)
+            transform_test = transform_to_tensor
             builder = CIFAR10
 
         elif dataset == 'MNIST':
             transform_train = transform_to_tensor
+            transform_test = transform_to_tensor
             builder = MNIST
+        elif dataset == 'TINYIMAGENET':
+            mean = [float(cfg.get('PREPROCESS', 'MEAN_0')), float(cfg.get('PREPROCESS', 'MEAN_1')),
+                    float(cfg.get('PREPROCESS', 'MEAN_2'))]
+            std = [float(cfg.get('PREPROCESS', 'STD_0')), float(cfg.get('PREPROCESS', 'STD_1')),
+                   float(cfg.get('PREPROCESS', 'STD_2'))]
+            normalize = transforms.Normalize(mean=mean, std=std)
+            train_transforms_list = [transforms.Resize(256),
+                                    transforms.CenterCrop(224),
+                                    transforms.ToTensor(),
+                                    normalize,]
+            transform_train = transforms.Compose(train_transforms_list)
+            transform_test = transform_train 
+            builder = TINYIMAGENET
         else:
             raise Exception("Dataset not supported: {}".format(args.dataset))
 
@@ -115,7 +132,7 @@ class Trainer(object):
         test_set = builder(root=args.datadir,
                            train=False,
                            download=True,
-                           transform=transform_to_tensor)
+                           transform=transform_test)
         self.train_loader = DataLoader(train_set,
                                        batch_size=args.batch_size,
                                        shuffle=True,
