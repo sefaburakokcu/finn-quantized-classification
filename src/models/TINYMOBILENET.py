@@ -130,10 +130,17 @@ class TinyMobileNet(nn.Module):
             weight_quant=CommonIntWeightPerTensorQuant,
             weight_bit_width=weight_bit_width)
 
+    def clip_weights(self, min_val, max_val):
+        for mod in self.features:
+            if isinstance(mod, QuantConv2d):
+                mod.weight.data.clamp_(min_val, max_val)
+        for mod in [self.output]:
+            if isinstance(mod, QuantLinear):
+                mod.weight.data.clamp_(min_val, max_val)
+                
     def forward(self, x):
         x = self.features(x)
         x = self.final_pool(x)
-        print(x.shape)
         x = x.view(x.size(0), -1)
         out = self.output(x)
         return out
