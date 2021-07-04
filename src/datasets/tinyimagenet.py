@@ -167,7 +167,7 @@ class TINYIMAGENET(Dataset):
     self.label_data = []
 
     self.max_samples = max_samples
-    self.samples = tinp.paths[mode][:100]
+    self.samples = tinp.paths[mode]
     self.samples_num = len(self.samples)
 
     if self.max_samples is not None:
