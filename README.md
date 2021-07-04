@@ -18,11 +18,13 @@ For training, [Brevitas](https://github.com/Xilinx/brevitas) which is a PyTorch 
 * Available Models
   * Fully Connected(FC)
   * Convolutional Neural Network(CNV)
-  * Lenet5(using HardTanh instead of Tanh activation)
+  * Lenet5(using HardTanh instead of Tanh activation)(LENET5)
+  * Tiny MobilenetV1(TINYIMAGENET)
 
 * Available Datasets
   * MNIST
   * CIFAR10
+  * TINYIMAGENET
 
 
 ## Requirements
