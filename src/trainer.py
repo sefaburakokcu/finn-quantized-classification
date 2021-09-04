@@ -117,8 +117,10 @@ class Trainer(object):
             normalize = transforms.Normalize(mean=mean, std=std)
             train_transforms_list = [transforms.Resize(256),
                                     transforms.CenterCrop(224),
+                                    transforms.RandomHorizontalFlip(),
                                     transforms.ToTensor(),
                                     normalize,]
+
             transform_train = transforms.Compose(train_transforms_list)
             transform_test = transform_train 
             builder = TINYIMAGENET
@@ -127,11 +129,11 @@ class Trainer(object):
 
         train_set = builder(root=args.datadir,
                             train=True,
-                            download=True,
+                            download=False,
                             transform=transform_train)
         test_set = builder(root=args.datadir,
                            train=False,
-                           download=True,
+                           download=False,
                            transform=transform_test)
         self.train_loader = DataLoader(train_set,
                                        batch_size=args.batch_size,
