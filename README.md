@@ -95,21 +95,21 @@ optional arguments:
 
 To start training a model from scratch, e.g. LFC_1W1A, run:
  ```bash
-PYTORCH_JIT=1 python quantized_classification_train.py --network LFC_1W1A --experiments /path/to/experiments/
+BREVITAS_JIT=1 python quantized_classification_train.py --network LFC_1W1A --experiments /path/to/experiments/
  ```
 
 ## Evaluate
 
 To evaluate a model, e.g. LFC_1W1A, run:
  ```bash
-PYTORCH_JIT=1 python quantized_classification_train.py --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar
+BREVITAS_JIT=1 python quantized_classification_train.py --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar
  ```
  
 ## Export
 
 To export a model, e.g. LFC_1W1A, run:
  ```bash
-PYTORCH_JIT=1 python quantized_classification_train.py --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar --onnx_export
+BREVITAS_JIT=1 python quantized_classification_train.py --evaluate --network LFC_1W1A --resume /path/to/checkpoint.tar --onnx_export
  ```
 
 ## References
