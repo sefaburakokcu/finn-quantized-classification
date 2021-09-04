@@ -122,7 +122,7 @@ class TinyMobileNet(nn.Module):
                 stage.add_module('unit{}'.format(j + 1), mod)
                 in_channels = out_channels
             self.features.add_module('stage{}'.format(i + 1), stage)
-        self.final_pool = QuantAvgPool2d(kernel_size=7, stride=1, bit_width=weight_bit_width)
+        self.final_pool = QuantAvgPool2d(kernel_size=5, stride=1, bit_width=weight_bit_width)
         self.output = QuantLinear(
             in_channels, num_classes,
             bias=True,
@@ -130,6 +130,8 @@ class TinyMobileNet(nn.Module):
             weight_quant=CommonIntWeightPerTensorQuant,
             weight_bit_width=weight_bit_width)
 
+        self.name = 'TINYMOBILENET'
+        
     def clip_weights(self, min_val, max_val):
         for mod in self.features:
             if isinstance(mod, QuantConv2d):
@@ -142,13 +144,17 @@ class TinyMobileNet(nn.Module):
         x = self.features(x)
         x = self.final_pool(x)
         x = x.view(x.size(0), -1)
+        # print(x.shape)
         out = self.output(x)
         return out
 
 
 def tinymobilenet_v1(cfg):
 
-    channels = [[32], [64], [128, 128], [256, 256], [512, 512], [512, 512]]
+    channels = [[32], [64], [64, 64], [128, 128], [256, 256], [256, 256]]
+    channels = [[32], [64], [128, 128], [256, 256], [512, 512, 512, 512, 512, 512], [1024, 1024]]
+    # channels = [[32], [64], [128, 128, 256, 256], [512, 512, 1024, 1024]] #6528, 16 mb
+
     first_stage_stride = False
     width_scale = float(cfg.get('MODEL', 'WIDTH_SCALE'))
     weight_bit_width = cfg.getint('QUANT', 'WEIGHT_BIT_WIDTH')
