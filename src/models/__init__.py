@@ -35,17 +35,20 @@ __all__ = ['cnv_1w1a', 'cnv_1w2a', 'cnv_2w2a',
 from .CNV import cnv
 from .FC import fc
 from .LENET5 import lenet5
+from .TINYMOBILENET import tinymobilenet_v1
 
 model_impl = {
     'CNV': cnv,
     'FC': fc,
     'LENET5': lenet5,
+    'TINYMOBILENET': tinymobilenet_v1
 }
 
 def get_model_cfg(name):
     cfg = ConfigParser()
     current_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(current_dir, '..', 'cfg', name.lower() + '.ini')
+    print(config_path)
     assert os.path.exists(config_path)
     cfg.read(config_path)
     return cfg
